@@ -5,48 +5,131 @@ import ReactDOM from 'react-dom';
 
 //Change logo later
 class App extends Component {
+  constructor(props){
+    super(props);
+    this.deleteOptions = this.deleteOptions.bind(this);
+    this.addOptions = this.addOptions.bind(this);
+    this.state = {
+      options: []
+    }
+  }  
+
+  deleteOptions() {
+    this.setState(() => {
+      return {
+        options: []
+      }
+    })
+  }
+
+  addOptions(option) {
+    if(!option) {
+      return 'Enter valid value!';
+    }
+
+    else if(this.state.options.indexOf(option) > -1){
+      return 'This option already exists!';
+    }
+
+    this.setState((prevState) => {
+      return {
+        options: prevState.options.concat(option)
+      }
+    })
+  }
   render() {
-    return (
-      <div>  
+    const title = "Shopping List!";
+    const subtitle = "MAKE YOUR LIST HO";
+    return(
+      <div>
         <Header />
+        <Action />
+        <Options />
+        <AddOption />
       </div>
-      );
+    )
   }
 }
 
-//Header -> Nav, Body -> left_col + right_col
 class Header extends Component {
   render() {
-    return (
-      <div className="App">
-      <img src={logo} className="App-logo" alt="logo" />
-      <h1 className="App-title">Aurora</h1>
-      <Nav />
+    return(
+      <div>
+        <h1>{this.props.title}</h1>
+        <h2>{this.props.subtitle}</h2>
       </div>
-    );
+    )
   }
 }
 
-class Nav extends Component {
+class Action extends Component {
   render() {
+    return(
+      <button
+        onClick = {this.props.addOptions}
+        disabled = {!this.props.hasOptions}
+      >
+      Add Item</button>
+    )
+  }
+}
+
+class Options extends Component {
+  render(){
+    return(
+      <div>
+        <button onClick={this.props.deleteOptions}>Remove All</button>
+        {
+          this.props.options.map((option) => <Option key={option} optionText={option} />)
+        }
+      </div>
+    )
+  }
+}
+
+class Option extends Component {
+  render(){
     return (
       <div>
-        Nav
+        {this.props.optionText}
       </div>
-    );
+    )
   }
 }
 
-class Body extends Component {
+class AddOption extends React.Component {
+  constructor(props) {
+      super(props);
+      this.handleAddOption = this.handleAddOption.bind(this);
+      this.state = {
+          error: undefined
+      }
+  }
+  handleAddOption(e) {
+      e.preventDefault();
+
+      const option = e.target.elements.option.value.trim();
+      const error = this.props.handleAddOption(option);
+
+      this.setState(() => {
+          return {
+              error
+          }
+      })
+  }
   render() {
-    return (
-      <div>
-        Body
-      </div>
-    );
+      return (
+          <div>
+              {this.state.error && <p>{this.state.error}</p>}
+              <form onSubmit={this.handleAddOption}>
+                  <input type="text" name="option"/>
+                  <button>Add Option</button>
+              </form>
+          </div>
+      )
   }
 }
 
-//ReactDOM.render(<Header />, document.getElementById('app'));
+//ReactDOM.render(<App />, document.getElementById('app'));
 
 export default App;
