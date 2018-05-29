@@ -1,5 +1,7 @@
 import React from 'react';
 import Header from './Header';
+import Items from './Items';
+import AddItem from './AddItem';
 
 export default class AuroraApp extends React.Component {
     state = {
