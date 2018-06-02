@@ -1,11 +1,11 @@
 import React from 'react';
 
-// Each item is going to have a name, type, and volume
+// Each item is going to have a name and type
 const Item = (props) => (
     <div>
-        <p>{props.count}. {props.itemName}    {props.itemType}    {props.itemVol}</p>
+        <p>{props.count}. {props.itemName}    {props.itemType}</p>
         <button
-            onClick={(e) =>{
+            onClick={(e) => {
                 props.deleteItem(props.itemName)
             }}
         >

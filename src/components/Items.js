@@ -14,8 +14,7 @@ const Items = (props) => (
                 <Item
                     key = {item}
                     itemName = {item}
-                    itemType = {item}
-                    itemVol = {item}
+                    itemType = {item.itemType}
                     count = {index + 1}
                     deleteItem = {props.deleteItem}
                 />
