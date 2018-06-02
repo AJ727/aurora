@@ -6,8 +6,11 @@ export default class AddItem extends React.Component {
     };
     handleAddItem = (e) => {
         e.preventDefault();
+        // Access and store item name
         const item = e.target.elements.option.value.trim();
+        // Access and store item type
         const itemType = e.target.elements.type.value.trim();
+        console.log(itemType)
         const error = this.props.handleAddItem(item);
 
         // Implicitly Returns Error
@@ -18,11 +21,6 @@ export default class AddItem extends React.Component {
             e.target.elements.option.value = '';
         }
     };
-    selectedOption = (n) => {
-        return(
-            <option value={n} selected={this.state.selected === n}>{n}</option>
-        )
-    }
     render(){
         return (
             <div>
@@ -30,7 +28,7 @@ export default class AddItem extends React.Component {
                 <form onSubmit={this.handleAddItem}>
                     <input type="text" name="option" />
                     <br />
-                    <select name="type" onChange={this.selectedOption}>
+                    <select name="type">
                         <option>Gin</option>
                         <option>Tequila</option>
                         <option>Rum</option>

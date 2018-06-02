@@ -21,7 +21,7 @@ export default class AuroraApp extends React.Component {
             )
         }))
     };
-    handleAddItem = (item) => {
+    handleAddItem = (item, itemType) => {
         if (!item) {
             return 'Enter valid item';
         }
@@ -29,7 +29,7 @@ export default class AuroraApp extends React.Component {
             return 'This item already exists'
         }
         this.setState((prevState) => ({
-            items: prevState.items.concat(item)
+            items: prevState.items.concat(item + ' ' + itemType)
         }));
     };
     render() {
